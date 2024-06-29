@@ -1,6 +1,8 @@
 #include <iostream>
 #include <memory>
 #include <vector>
+#include <array>
+#include <cstdint>
 
 template<class T>
 class Flipper {
@@ -70,7 +72,7 @@ protected:
 	T B = T{};
 	bool AIsFront = true;
 };
-
+/** /
 int main() {
 	Flipper<int> F;
 
@@ -82,6 +84,54 @@ int main() {
 	F.Flip();
 	std::cout << F.Get() << std::endl;
 	F.Flip();
+
+	return 0;
+}
+/**/
+
+template<class T,std::size_t N>
+class FlippableArray {
+public:
+	/** /
+	T& Get() {
+		return F.Get();
+	}
+
+	T& GetRevease() {
+		return F.GetRevease();
+	}
+
+	T& GetFront() {
+		return F.GetFront();
+	}
+	T& GetBack () {
+		return F.GetBack();
+	}
+	/**/
+	bool Flip() {
+		F.Flip();
+	}
+
+	typedef T Type;
+	std::size_t Size() {
+		return N;
+	}
+	std::array<T, N>& Get() {
+		return F.Get();
+	}
+	std::array<T, N>& Front() {
+		return F.GetFront();
+	}
+	std::array<T, N>& Back() {
+		return F.GetBack();
+	}
+protected:
+	Flipper<std::array<T, N>> F;
+};
+
+int main() {
+	FlippableArray<char, 128> FA;
+	auto X= FA.Get()[100];
 
 	return 0;
 }
